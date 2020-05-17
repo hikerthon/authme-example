@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authme Test</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://authme.com/aws-hackathon/js/auth.min.js"></script>
+</head>
+
+<body>
+  <div id="myauth"></div>
+  <img id="photo" />
+  <input id="authImgSelect" type="file">
+  <script>
+
+    $("input[type=file]").change(function () {
+      var fr = new FileReader();
+      fr.onload = function () {
+        $("#myauth").html("");
+        let img = document.getElementById("photo");
+        img.onload = function () {
+          $("#myauth").initAuthMe({
+            apiKey: '37IEJto3U11P1qRKGB06i74vxolnzE9g3BUaD9ri',
+            refPhoto: 'photo',
+            callback: onResult
+          });
+        };
+        img.src = fr.result;
+      }
+      fr.readAsDataURL(document.getElementById("authImgSelect").files[0]);
+    });
+
+    function onResult(rst) {
+      console.log(rst);
+    }
+  </script>
+</body>
+
+</html>
